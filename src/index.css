@@ -11,3 +11,12 @@
   font-family: "Roboto", sans-serif;
   scroll-behavior: smooth;
 }
+
+.hide-scrollbar::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome : from stackoverflow*/ 
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}

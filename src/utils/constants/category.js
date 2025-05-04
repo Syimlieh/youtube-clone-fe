@@ -1,0 +1,33 @@
+
+// list of categories for the youtube clone app generated
+export const CATEGORIES = [
+    { name: 'All', value: 'all' },
+    { name: 'Music', value: 'music' },
+    { name: 'Gaming', value: 'gaming' },
+    { name: 'News', value: 'news' },
+    { name: 'Sports', value: 'sports' },
+    { name: 'Movies', value: 'movies' },
+    { name: 'Education', value: 'education' },
+    { name: 'Comedy', value: 'comedy' },
+    { name: 'Entertainment', value: 'entertainment' },
+    { name: 'Science & Technology', value: 'science_and_technology' },
+    { name: 'How To & Style', value: 'how_to_and_style' },
+    { name: 'Travel & Events', value: 'travel_and_events' },
+    { name: 'Pets & Animals', value: 'pets_and_animals' },
+    { name: 'Autos & Vehicles', value: 'autos_and_vehicles' },
+    { name: 'Shorts', value: 'shorts' },
+    { name: 'Live', value: 'live' },
+    { name: 'Fashion & Beauty', value: 'fashion_and_beauty' },
+    { name: 'Sports Highlights', value: 'sports_highlights' },
+    { name: 'Food', value: 'food' },
+    { name: 'Health & Fitness', value: 'health_and_fitness' },
+    { name: 'Kids', value: 'kids' },
+    { name: 'Documentary', value: 'documentary' },
+    { name: 'Animation', value: 'animation' },
+    { name: 'Art & Design', value: 'art_and_design' },
+    { name: 'Lifestyle', value: 'lifestyle' },
+    { name: 'Vlogs', value: 'vlogs' },
+    { name: 'ASMR', value: 'asmr' },
+    { name: 'DIY & Crafts', value: 'diy_and_crafts' },
+
+]

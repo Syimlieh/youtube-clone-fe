@@ -6,10 +6,10 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 
 const Navbar = () => {
     return (
-        <nav className="h-16 flex justify-between items-center px-4 md:px-7">
+        <nav className="h-16 flex justify-between items-center">
             {/* Logo and Menu */}
             <div className="flex items-center gap-4 min-w-[180px]">
-                <RxHamburgerMenu className='text-2xl' />
+                <RxHamburgerMenu className='text-2xl cursor-pointer' />
                 <img src="/images/logo.png" alt="YouTube Logo" className="h-6 w-auto" />
             </div>
 
@@ -31,7 +31,7 @@ const Navbar = () => {
             <div className="flex items-center gap-4 min-w-[150px] justify-end">
                 <div className='flex items-center gap-2 bg-gray-100 rounded-full px-4 py-1.5 cursor-pointer hover:bg-gray-200'>
                     <GoPlus className='text-3xl' />
-                    <button>Create</button>
+                    <button className='cursor-pointer'>Create</button>
                 </div>
                 <button className="p-2 rounded-full hover:bg-gray-100">
                     <IoIosNotificationsOutline className='text-3xl cursor-pointer' />

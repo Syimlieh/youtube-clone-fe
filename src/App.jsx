@@ -1,10 +1,12 @@
-import Header from "./components/common/Header";
+import Category from "./components/Category";
+import Navbar from "./components/common/Navbar";
 
 
 function App() {
   return (
-    <div className="">
-      <Header />
+    <div className="px-4">
+      <Navbar />
+      <Category />
     </div>
   )
 }
