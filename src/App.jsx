@@ -1,12 +1,16 @@
 import Category from "./components/Category";
 import Navbar from "./components/common/Navbar";
+import SidebarColapsed from "./components/common/SidebarColapsed";
 
 
 function App() {
   return (
-    <div className="px-4">
+    <div className="">
       <Navbar />
-      <Category />
+      <div className="flex">
+        <SidebarColapsed />
+        <Category />
+      </div>
     </div>
   )
 }

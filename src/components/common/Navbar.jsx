@@ -6,9 +6,9 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 
 const Navbar = () => {
     return (
-        <nav className="h-16 flex justify-between items-center">
+        <nav className="h-16 flex justify-between items-center px-7">
             {/* Logo and Menu */}
-            <div className="flex items-center gap-4 min-w-[180px]">
+            <div className="flex items-center gap-5 min-w-[180px]">
                 <RxHamburgerMenu className='text-2xl cursor-pointer' />
                 <img src="/images/logo.png" alt="YouTube Logo" className="h-6 w-auto" />
             </div>

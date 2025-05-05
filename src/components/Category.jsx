@@ -33,7 +33,7 @@ const Category = () => {
     };
 
     return (
-        <div className='relative'>
+        <div className='relative h-14 flex items-center px-4'>
             {
                 showLeftArrow &&
                 <span className='absolute left-0 top-0 rounded-full bg-white w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer hover:bg-gray-100'
