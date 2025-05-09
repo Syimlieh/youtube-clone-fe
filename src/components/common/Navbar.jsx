@@ -3,13 +3,19 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { CiSearch } from "react-icons/ci";
 import { GoPlus } from "react-icons/go";
 import { IoIosNotificationsOutline } from "react-icons/io";
+import { useDispatch } from 'react-redux';
+import { toggleSidebar } from '../../store/slice/toggle.slice';
 
 const Navbar = () => {
+    const dispatch = useDispatch();
+
     return (
         <nav className="h-16 flex justify-between items-center px-7">
             {/* Logo and Menu */}
             <div className="flex items-center gap-5 min-w-[180px]">
-                <RxHamburgerMenu className='text-2xl cursor-pointer' />
+                <RxHamburgerMenu
+                    className='text-2xl cursor-pointer' onClick={() => dispatch(toggleSidebar())}
+                />
                 <img src="/images/logo.png" alt="YouTube Logo" className="h-6 w-auto" />
             </div>
 

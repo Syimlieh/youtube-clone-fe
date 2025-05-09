@@ -32,7 +32,7 @@ const sidebarItems = [
 ];
 
 const SidebarColapsed = () => {
-    const [isActive, setIsActive] = useState(false);
+    const [isActive, setIsActive] = useState(0);
 
     const handleActive = (value) => {
         setIsActive(value);
