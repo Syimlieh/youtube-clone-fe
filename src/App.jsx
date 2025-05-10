@@ -1,6 +1,7 @@
 import Category from "./components/Category";
 import Navbar from "./components/common/Navbar";
 import Sidebar from "./components/common/Sidebar";
+import VideoList from "./components/VideoList";
 
 
 function App() {
@@ -9,7 +10,10 @@ function App() {
       <Navbar />
       <div className="flex">
         <Sidebar />
-        <Category />
+        <div className="flex flex-col gap-12 overflow-x-hidden  px-4">
+          <Category />
+          <VideoList />
+        </div>
       </div>
     </div>
   )

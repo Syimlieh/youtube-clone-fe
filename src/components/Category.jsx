@@ -33,10 +33,10 @@ const Category = () => {
     };
 
     return (
-        <div className='relative h-14 flex items-center px-4'>
+        <div className='relative h-14 flex items-center'>
             {
                 showLeftArrow &&
-                <span className='absolute left-0 top-0 rounded-full bg-white w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer hover:bg-gray-100'
+                <span className='absolute left-0 top-3 rounded-full bg-white w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer hover:bg-gray-100'
                     onClick={() => handleScroll('left')}
                 >
                     <MdOutlineKeyboardArrowLeft className='text-2xl' />
@@ -57,7 +57,7 @@ const Category = () => {
                     ))
                 }
             </div>
-            <span className='absolute right-0 top-0 rounded-full bg-white w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer hover:bg-gray-100'
+            <span className='absolute right-0 top-3 rounded-full bg-white w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer hover:bg-gray-100'
                 onClick={() => handleScroll('right')}
             >
                 <MdOutlineKeyboardArrowRight className='text-2xl' />
