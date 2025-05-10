@@ -1,4 +1,5 @@
 import React from 'react'
+import { formatViews, formatUploadAt } from '../utils/formatter.utils.js'
 
 const VideoCard = ({ title, channel, profile, thumbnail, views, publishedAt, duration }) => {
     return (
@@ -13,9 +14,9 @@ const VideoCard = ({ title, channel, profile, thumbnail, views, publishedAt, dur
                     <h3 className='text-base font-bold'>{title}</h3>
                     <p className='text-sm text-gray-500 font-medium'>{channel}</p>
                     <span className='flex gap-2 items-center'>
-                        <p className='text-gray-500 text-sm'>{views} Views</p>
+                        <p className='text-gray-500 text-sm'>{formatViews(views)} Views</p>
                         <span className='rounded-full w-1 h-1 bg-gray-500'></span>
-                        <p className='text-gray-500 text-sm'>{publishedAt}</p>
+                        <p className='text-gray-500 text-sm'>{formatUploadAt(publishedAt)}</p>
                     </span>
                 </div>
             </div>

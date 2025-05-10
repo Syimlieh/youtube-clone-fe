@@ -13,7 +13,7 @@ const initialState = {
             views: 1000,
             likes: 100,
             duration: "10:00",
-            publishedAt: "2023-01-01",
+            publishedAt: "2025-05-10",
         },
         {
             id: 2,
@@ -23,7 +23,7 @@ const initialState = {
             url: "https://www.youtube.com/watch?v=bGnRoVFwUeE",
             profile: "https://yt3.ggpht.com/uzqjVPREImGM9v8N63I6sgpByD7WfVTBR6e4UKPrhEXLXGBB9dzOWHeLd30Ip2o4JQ96P22Tp2o=s68-c-k-c0x00ffffff-no-rj",
             channel: "Channel 2",
-            views: 2000,
+            views: 24000000,
             likes: 200,
             duration: "20:00",
             publishedAt: "2023-02-01",
