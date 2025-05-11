@@ -1,12 +1,13 @@
-import React from 'react'
 import VideoCard from './VideoCard';
 import { useSelector } from "react-redux";
 
 const VideoList = () => {
     const videos = useSelector((state) => state.videos.items);
+    const toggle = useSelector((state) => state.toggle.sidebar);
 
     return (
-        <div className='grid grid-cols-3 gap-8'>
+        // will move to the left as per our fixed sidebar 
+        <div className={`relative top-38 ${!toggle ? "md:ml-18" : "md:ml-64"}  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8`}>
             {
                 videos && videos.map((item) => (
                     <VideoCard

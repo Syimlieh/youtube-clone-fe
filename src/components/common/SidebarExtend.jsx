@@ -83,7 +83,7 @@ const SidebarExtend = () => {
         setIsActive(value);
     };
     return (
-        <div className='flex flex-col gap-2 px-4 text-[#0f0f0f] w-64 shrink-0 mt-2'>
+        <div className='fixed top-16 left-0 hidden md:flex flex-col gap-2 px-4 text-[#0f0f0f] w-64 shrink-0 mt-2'>
             {sidebarItems.map((category, index) => (
                 <div key={index} className='flex flex-col'>
                     {/* If category exist then only we display it  */}

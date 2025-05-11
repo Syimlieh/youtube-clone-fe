@@ -39,12 +39,13 @@ const SidebarColapsed = () => {
     };
 
     return (
-        <div className='flex flex-col gap-4 bg-transparent px-2 text-[#0f0f0f]'>
+        // Both sidebar is set as fixed
+        <div className='fixed top-16 left-0 w-20 hidden md:flex flex-col gap-4 bg-transparent text-[#0f0f0f] px-1 py-2'>
             {
                 sidebarItems.map((item, index) => (
                     <div
                         key={index}
-                        className={`flex items-center flex-col justify-center h-18 hover:bg-gray-200 w-full cursor-pointer rounded-xl gap-2 ${isActive === index ? 'bg-gray-200' : ''}`}
+                        className={`flex items-center flex-col justify-center h-18 hover:bg-gray-200 w-full cursor-pointer rounded-xl gap-2 `}
                         onClick={() => handleActive(index)}
                     >
                         {isActive === index ? item.filledIcon : item.outlineIcon}
