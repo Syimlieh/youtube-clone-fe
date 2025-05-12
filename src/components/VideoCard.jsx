@@ -3,7 +3,7 @@ import { formatViews, formatUploadAt } from '../utils/formatter.utils.js'
 
 const VideoCard = ({ title, channel, profile, thumbnail, views, publishedAt, duration }) => {
     return (
-        <div className=' relative flex flex-col gap-4'>
+        <div className='relative flex flex-col gap-4'>
             <div className='relative'>
                 <img src={thumbnail} alt={title + thumbnail} className='w-full h-full rounded-2xl ' />
                 <p className='absolute right-2 bottom-2 bg-black text-slate-50 p-1'>{duration}</p>
