@@ -1,19 +1,17 @@
-import React, { useState } from 'react'
-import { RxHamburgerMenu } from "react-icons/rx";
+import { useState } from 'react';
 import { CiSearch } from "react-icons/ci";
 import { GoPlus } from "react-icons/go";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import { useDispatch } from 'react-redux';
-import { toggleSidebar } from '../../store/slice/toggle.slice';
 import { IoMdArrowBack } from "react-icons/io";
 import Hamburger from './Hamburger';
+import ProfileModal from './ProfileModal';
 
 const Navbar = () => {
-    const dispatch = useDispatch();
     const [activeSmSearch, setActiveSmSearch] = useState(false);
+    const [profileModal, setProfileModal] = useState(false);
 
     return (
-        <nav className="fixed top-0 l-0 h-16 flex justify-between items-center gap-4 px-5 md:px-7 w-full z-2 bg-white">
+        <nav className="fixed top-0 l-0 h-16 flex justify-between items-center gap-4 px-5 md:px-7 w-full bg-white z-30">
             {/* Logo and Menu */}
             {
                 // we either display the navbar or just the search bar based on click 
@@ -38,7 +36,8 @@ const Navbar = () => {
                         </div>
 
                         {/* profile and Notification  */}
-                        <div className="hidden tiny:flex items-center gap-1 lg:gap-4 justify-end flex-1">
+                        <div className="relative hidden tiny:flex items-center gap-1 lg:gap-4 justify-end flex-1">
+
                             <div className='flex items-center gap-2 bg-gray-100 rounded-full px-2 md:px-4 py-1.5 cursor-pointer hover:bg-gray-200'>
                                 <GoPlus className='text-3xl' />
                                 <button className='cursor-pointer'>Create</button>
@@ -50,7 +49,12 @@ const Navbar = () => {
                                 src="/images/profile.jpg"
                                 alt="User Avatar"
                                 className="h-10 w-10 rounded-full object-cover cursor-pointer"
+                                onClick={() => setProfileModal(!profileModal)}
                             />
+                            {/* <div className=''>
+                            </div> */}
+                            {profileModal && <ProfileModal />}
+
                         </div>
                     </> :
                     <>

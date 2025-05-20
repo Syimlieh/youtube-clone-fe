@@ -9,7 +9,7 @@ const Category = () => {
     const [showLeftArrow, setShowLeftArrow] = useState(false);
     const scrollRef = useRef(null);
     const toggle = useSelector((state) => state.toggle.sidebar);
-    
+
 
     // function to handle click category for active item
     const handleCategoryClick = (category) => {
