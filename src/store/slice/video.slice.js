@@ -4,6 +4,7 @@ const initialState = {
     items: [
         {
             id: 1,
+            videoId: "Ndz3PYADcvA",
             title: "How  Engineers Can Build PERMANENT Job Security in 2025",
             description: "Description for Video 1",
             thumbnail: "https://i.ytimg.com/vi/Ndz3PYADcvA/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLDGEGJ_dxEQj8jz68y0-wb_GVNg4g",
@@ -14,9 +15,11 @@ const initialState = {
             likes: 100,
             duration: "10:00",
             publishedAt: "2025-05-10",
+            subscriberCount: 10000,
         },
         {
             id: 2,
+            videoId: "bGnRoVFwUeE",
             title: "Ka Kong Bertina Kam Donkam Khuslai Ban Ïoh Pyndep PhD | Mang U CM 1.35 Lak Na CMSG",
             description: "Description for Video 2",
             thumbnail: "https://i.ytimg.com/vi/bGnRoVFwUeE/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLCF2Kp2YFNuCp2eRdpMRUs1pbTAag",
@@ -27,9 +30,11 @@ const initialState = {
             likes: 200,
             duration: "20:00",
             publishedAt: "2023-02-01",
+            subscriberCount: 2000000,
         },
         {
             id: 3,
+            videoId: "X3yATXAWL_g",
             title: "200W Camping Power Station 192Wh Power Bank 60000mAh LiFePo4",
             description: "Description for Video 3",
             thumbnail: "https://i.ytimg.com/vi/X3yATXAWL_g/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBDEpQpfSZda3ysTuYJYdatZ1wcRQ",
@@ -40,9 +45,11 @@ const initialState = {
             likes: 300,
             duration: "30:00",
             publishedAt: "2023-03-01",
+            subscriberCount: 99,
         },
         {
             id: 4,
+            videoId: "TQdLgzVk2T8",
             title: "The Beginner's Guide to Clean Architecture",
             description: "Description for Video 4",
             thumbnail: "https://i.ytimg.com/vi/TQdLgzVk2T8/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLC383Mm6ytkTCIhNNt3yPRn-sVWIg",
@@ -53,9 +60,11 @@ const initialState = {
             likes: 400,
             duration: "40:00",
             publishedAt: "2023-04-01",
+            subscriberCount: 2000,
         },
         {
             id: 5,
+            videoId: "rl5mkbx9yNU",
             title: "𝙿𝚊𝚠𝚗𝚊𝚖 𝚔𝚒 𝚔𝚑𝚢𝚗𝚗𝚊𝚑 𝚋𝚊 𝚛𝚠𝚊𝚒 𝚁𝚒 𝚕𝚞𝚖 𝚋𝚊𝚍 𝚟𝚊𝚗𝚍𝚎 𝚖𝚊𝚝𝚊𝚛𝚊𝚖  𝙷𝚊 𝚔𝚢𝚕𝚕𝚎𝚗𝚐 𝚔𝚊 𝚙𝚢𝚛𝚝𝚑𝚎𝚒",
             description: "Description for Video 5",
             thumbnail: "https://i.ytimg.com/vi/rl5mkbx9yNU/hq720.jpg?sqp=-oaymwFBCNAFEJQDSFryq4qpAzMIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB8AEB-AH-CYAC0AWKAgwIABABGEEgZSg4MA8=&rs=AOn4CLAdVMWBOMocZWoKyrNq0Y2d-v0WBw",
@@ -66,9 +75,11 @@ const initialState = {
             likes: 500,
             duration: "50:00",
             publishedAt: "2023-05-01",
+            subscriberCount: 999,
         },
         {
             id: 6,
+            videoId: "TWM-atA8ft8",
             title: "Career Podcast || E1 - Content Creator || Code Freemen",
             description: "Description for Video 6",
             thumbnail: "https://i.ytimg.com/vi/TWM-atA8ft8/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBlWXgi3v86mpOgZtOSUyzVeRI20Q",
@@ -79,9 +90,11 @@ const initialState = {
             likes: 600,
             duration: "60:00",
             publishedAt: "2023-06-01",
+            subscriberCount: 2000000,
         },
         {
             id: 7,
+            videoId: "Ndz3PYADcvA",
             title: "How  Engineers Can Build PERMANENT Job Security in 2025",
             description: "Description for Video 7",
             thumbnail: "https://i.ytimg.com/vi/Ndz3PYADcvA/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLDGEGJ_dxEQj8jz68y0-wb_GVNg4g",
@@ -92,9 +105,11 @@ const initialState = {
             likes: 700,
             duration: "70:00",
             publishedAt: "2023-07-01",
+            subscriberCount: 8792,
         },
         {
             id: 8,
+            videoId: "bGnRoVFwUeE",
             title: "Ka Kong Bertina Kam Donkam Khuslai Ban Ïoh Pyndep PhD | Mang U CM 1.35 Lak Na CMSG",
             description: "Description for Video 8",
             thumbnail: "https://i.ytimg.com/vi/bGnRoVFwUeE/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLCF2Kp2YFNuCp2eRdpMRUs1pbTAag",
@@ -105,9 +120,11 @@ const initialState = {
             likes: 800,
             duration: "80:00",
             publishedAt: "2023-08-01",
+            subscriberCount: 8090911,
         },
         {
             id: 9,
+            videoId: "X3yATXAWL_g",
             title: "200W Camping Power Station 192Wh Power Bank 60000mAh LiFePo4",
             description: "Description for Video 9",
             thumbnail: "https://i.ytimg.com/vi/X3yATXAWL_g/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBDEpQpfSZda3ysTuYJYdatZ1wcRQ",
@@ -117,10 +134,12 @@ const initialState = {
             views: 9000,
             likes: 900,
             duration: "90:00",
-            publishedAt: "2023-09-01",            
+            publishedAt: "2023-09-01",    
+            subscriberCount: 67657,
         },
         {
             id: 10,
+            videoId: "TQdLgzVk2T8",
             title: "The Beginner's Guide to Clean Architecture",
             description: "Description for Video 10",
             thumbnail: "https://i.ytimg.com/vi/TQdLgzVk2T8/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLC383Mm6ytkTCIhNNt3yPRn-sVWIg",
@@ -131,9 +150,11 @@ const initialState = {
             likes: 1000,
             duration: "100:00",
             publishedAt: "2023-10-01",
+            subscriberCount: 767112,
         },
         {
             id: 11,
+            videoId: "rl5mkbx9yNU",
             title: "𝙿𝚊𝚠𝚗𝚊𝚖 𝚔𝚒 𝚔𝚑𝚢𝚗𝚗𝚊𝚑 𝚋𝚊 𝚛𝚠𝚊𝚒 𝚁𝚒 𝚕𝚞𝚖 𝚋𝚊𝚍 𝚟𝚊𝚗𝚍𝚎 𝚖𝚊𝚝𝚊𝚛𝚊𝚖  𝙷𝚊 𝚔𝚢𝚕𝚕𝚎𝚗𝚐 𝚔𝚊 𝚙𝚢𝚛𝚝𝚑𝚎𝚒",
             description: "Description for Video 11",
             thumbnail: "https://i.ytimg.com/vi/rl5mkbx9yNU/hq720.jpg?sqp=-oaymwFBCNAFEJQDSFryq4qpAzMIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB8AEB-AH-CYAC0AWKAgwIABABGEEgZSg4MA8=&rs=AOn4CLAdVMWBOMocZWoKyrNq0Y2d-v0WBw",
@@ -144,9 +165,11 @@ const initialState = {
             likes: 1100,
             duration: "110:00",
             publishedAt: "2023-11-01",
+            subscriberCount: 2000000,
         },
         {
             id: 12,
+            videoId: "TWM-atA8ft8",
             title: "Career Podcast || E1 - Content Creator || Code Freemen",
             description: "Description for Video 12",
             thumbnail: "https://i.ytimg.com/vi/TWM-atA8ft8/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBlWXgi3v86mpOgZtOSUyzVeRI20Q",
@@ -157,9 +180,11 @@ const initialState = {
             likes: 1200,
             duration: "120:00",
             publishedAt: "2023-12-01",
+            subscriberCount: 9998789,
         },
         {
             id: 13,
+            videoId: "Ndz3PYADcvA",
             title: "How Engineers Can Build PERMANENT Job Security in 2025",
             description: "Description for Video 13",
             thumbnail: "https://i.ytimg.com/vi/Ndz3PYADcvA/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLDGEGJ_dxEQj8jz68y0-wb_GVNg4g",
@@ -170,6 +195,7 @@ const initialState = {
             likes: 1300,
             duration: "130:00",
             publishedAt: "2023-01-02",
+            subscriberCount: 676567,
         }
     ],
     shorts: [
@@ -244,6 +270,14 @@ const initialState = {
 const videoSlice = createSlice({
     name: "video",
     initialState,
-})
+});
+
+// selector function
+export const selectVideoById = (state, id) => 
+  state.videos.items.find(item => item.videoId === id);
+
+
+// exporting reducers function
+export const { getVideoDetail } = videoSlice.actions;
 
 export default videoSlice.reducer;

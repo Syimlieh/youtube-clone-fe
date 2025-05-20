@@ -19,6 +19,7 @@ const VideoList = () => {
                         duration={item.duration}
                         views={item.views}
                         publishedAt={item.publishedAt}
+                        url={item.url}
                     />
                 ))
             }
