@@ -5,6 +5,7 @@ import { MdOutlineSubscriptions, MdSubscriptions, MdOutlinePlaylistPlay, MdOutli
 import { RiHistoryFill, RiGraduationCapFill, RiGraduationCapLine } from "react-icons/ri";
 import { BiSolidLike, BiLike } from "react-icons/bi";
 import { GoChevronRight } from "react-icons/go";
+import Hamburger from './Hamburger';
 
 // so for extended sidebar we are creating a section of sidebar seperated by category.
 const sidebarItems = [
@@ -83,7 +84,10 @@ const SidebarExtend = () => {
         setIsActive(value);
     };
     return (
-        <div className='fixed top-16 left-0 hidden md:flex flex-col gap-2 px-4 text-[#0f0f0f] w-64 shrink-0 mt-2'>
+        <div className='bg-white h-screen fixed top-0 left-0 hidden md:flex flex-col gap-2 px-4 text-[#0f0f0f] w-64 shrink-0 z-20'>
+            <div className='px-3 h-16 flex justify-between items-center'>
+                <Hamburger />
+            </div>
             {sidebarItems.map((category, index) => (
                 <div key={index} className='flex flex-col'>
                     {/* If category exist then only we display it  */}

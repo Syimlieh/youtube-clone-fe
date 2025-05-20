@@ -9,10 +9,12 @@ import RelatedVideos from "./RelatedVideos";
 const VideoView = () => {
   const [searchParams] = useSearchParams();
   const videoId = searchParams.get("v");
+  const toggle = useSelector((state) => state.toggle.sidebar);
   const { title, likes, profile, channel, publishedAt, subscriberCount } = useSelector((state) => selectVideoById(state, videoId));
 
   return (
-    <div className="flex flex-col m-auto xl:flex-row gap-6 max-w-screen-[2314px] 3xl:w-9/10 px-4 py-22">
+    <div className={`flex flex-col m-auto xl:flex-row gap-6 max-w-screen-[2314px] 3xl:w-9/10 px-4 py-22`}>
+      {toggle && <div className="absolute top-0 left-0 w-screen h-screen bg-gray-800 opacity-30 z-10"></div>}
       {/* Video Player */}
       <div className="w-full xl:w-[70%]">
         <div className="aspect-video rounded-xl overflow-hidden shadow-md">
