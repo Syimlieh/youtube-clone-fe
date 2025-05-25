@@ -5,6 +5,7 @@ import { formatUploadAt, formatViews } from "../utils/formatter.utils";
 import { PiThumbsUp, PiThumbsDown, PiShareFatLight, PiDotsThreeLight } from "react-icons/pi";
 import { LiaDownloadSolid } from "react-icons/lia";
 import RelatedVideos from "./RelatedVideos";
+import Comments from "./Comments";
 
 const VideoView = () => {
   const [searchParams] = useSearchParams();
@@ -63,6 +64,7 @@ const VideoView = () => {
             </span>
           </div>
         </div>
+        <Comments />
       </div>
 
       <div className="w-full xl:w-[30%]">
