@@ -6,7 +6,7 @@ const initialState = {
             id: 1,
             videoId: "Ndz3PYADcvA",
             title: "How  Engineers Can Build PERMANENT Job Security in 2025",
-            description: "Description for Video 1",
+            description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
             thumbnail: "https://i.ytimg.com/vi/Ndz3PYADcvA/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLDGEGJ_dxEQj8jz68y0-wb_GVNg4g",
             url: "https://www.youtube.com/watch?v=Ndz3PYADcvA",
             profile: "https://yt3.ggpht.com/0wMhEQe-e_FLwpQgUjDa82CbWVH6IplMb2Z8-JC_ysJ4aIy0d4cLzdd2omFnxEzPoe31ICio=s68-c-k-c0x00ffffff-no-rj",
@@ -134,7 +134,7 @@ const initialState = {
             views: 9000,
             likes: 900,
             duration: "90:00",
-            publishedAt: "2023-09-01",    
+            publishedAt: "2023-09-01",
             subscriberCount: 67657,
         },
         {
@@ -273,8 +273,8 @@ const videoSlice = createSlice({
 });
 
 // selector function
-export const selectVideoById = (state, id) => 
-  state.videos.items.find(item => item.videoId === id);
+export const selectVideoById = (state, id) =>
+    state.videos.items.find(item => item.videoId === id);
 
 
 // exporting reducers function

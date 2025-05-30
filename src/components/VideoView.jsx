@@ -6,12 +6,13 @@ import { PiThumbsUp, PiThumbsDown, PiShareFatLight, PiDotsThreeLight } from "rea
 import { LiaDownloadSolid } from "react-icons/lia";
 import RelatedVideos from "./RelatedVideos";
 import Comments from "./Comments";
+import VideoDescription from "./VideoDescription";
 
 const VideoView = () => {
   const [searchParams] = useSearchParams();
   const videoId = searchParams.get("v");
   const toggle = useSelector((state) => state.toggle.sidebar);
-  const { title, likes, profile, channel, publishedAt, subscriberCount } = useSelector((state) => selectVideoById(state, videoId));
+  const { title, views, likes, profile, channel, publishedAt, subscriberCount, description } = useSelector((state) => selectVideoById(state, videoId));
 
   return (
     <div className={`flex flex-col m-auto xl:flex-row gap-6 max-w-screen-[2314px] 3xl:w-9/10 px-4 py-22`}>
@@ -64,6 +65,7 @@ const VideoView = () => {
             </span>
           </div>
         </div>
+        <VideoDescription views={views} channel={channel} profile={profile} subscriberCount={subscriberCount} publishedAt={publishedAt} description={description} likes={likes} />
         <Comments />
       </div>
 
