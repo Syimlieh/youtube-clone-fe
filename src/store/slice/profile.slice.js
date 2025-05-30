@@ -6,7 +6,8 @@ const initialState = {
         lastName: "Syiemlieh",
         email: "fleming@gmail.com",
         channelName: "fleming1234",
-        profile: ""
+        channelId: "@channel5",
+        profile: "",
     }
 }
 

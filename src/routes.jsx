@@ -1,4 +1,5 @@
 import App from "./App";
+import ChannelProfile from "./pages/ChannelProfile";
 import VideoDetails from "./pages/VideoDetails";
 
 export const routes = [
@@ -9,5 +10,9 @@ export const routes = [
     {
         path: "/watch",
         element: <VideoDetails />
+    },
+    {
+        path: "/channel/:channelId",
+        element: <ChannelProfile />
     },
 ];

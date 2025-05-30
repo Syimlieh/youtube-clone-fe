@@ -1,7 +1,7 @@
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { selectVideoById } from "../store/slice/video.slice";
 import { useSelector } from "react-redux";
-import { formatUploadAt, formatViews } from "../utils/formatter.utils";
+import { formatViews } from "../utils/formatter.utils";
 import { PiThumbsUp, PiThumbsDown, PiShareFatLight, PiDotsThreeLight } from "react-icons/pi";
 import { LiaDownloadSolid } from "react-icons/lia";
 import RelatedVideos from "./RelatedVideos";
@@ -12,7 +12,7 @@ const VideoView = () => {
   const [searchParams] = useSearchParams();
   const videoId = searchParams.get("v");
   const toggle = useSelector((state) => state.toggle.sidebar);
-  const { title, views, likes, profile, channel, publishedAt, subscriberCount, description } = useSelector((state) => selectVideoById(state, videoId));
+  const { title, views, likes, profile, channel, channelId, publishedAt, subscriberCount, description } = useSelector((state) => selectVideoById(state, videoId));
 
   return (
     <div className={`flex flex-col m-auto xl:flex-row gap-6 max-w-screen-[2314px] 3xl:w-9/10 px-4 py-22`}>
@@ -36,11 +36,13 @@ const VideoView = () => {
         {/* Views, Sub, Date, and Like/Dislike and Download*/}
         <div className="flex justify-between items-center flex-wrap text-sm mt-2 text-slate-950">
           <div className="flex gap-4 xsm:gap-2 2xl:gap-4 items-center mb-2">
-            <img src={profile} alt='channel profile' className='w-10 h-10 2xl:w-12 2xl:h-12 rounded-full' />
-            <div>
-              <h3 className="text-base 2xl:text-xl font-bold">{channel}</h3>
-              <p className="text-xs text-gray-700">{formatViews(subscriberCount)} subscribers</p>
-            </div>
+            <Link to={`/channel/${channelId}`} className="flex gap-4 xsm:gap-2 2xl:gap-4 items-center mb-2">
+              <img src={profile} alt='channel profile' className='w-10 h-10 2xl:w-12 2xl:h-12 rounded-full' />
+              <div>
+                <h3 className="text-base 2xl:text-xl font-bold">{channel}</h3>
+                <p className="text-xs text-gray-700">{formatViews(subscriberCount)} subscribers</p>
+              </div>
+            </Link>
             <p className="text-white lg:text-sm 3xl:text-lg h-8 2xl:h-10 font-medium flex items-center bg-gray-900 rounded-full px-4 md:px-4 cursor-pointer hover:bg-gray-900">
               Subscribe
             </p>

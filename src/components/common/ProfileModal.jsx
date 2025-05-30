@@ -128,7 +128,7 @@ const profileItems = [
 
 const ProfileModal = () => {
     const profile = useSelector(state => state.profile.value)
-    const { firstName, lastName, channelName } = profile;
+    const { firstName, lastName, channelName, channelId } = profile;
 
     return (
         <div className='absolute top-2 right-12 border-red-400 bg-white h-screen hidden md:flex flex-col gap-2 px-4 py-4 text-[#0f0f0f] w-auto z-30 shadow-2xl text-nowrap'>
@@ -140,8 +140,8 @@ const ProfileModal = () => {
                 />
                 <div>
                     <h3 className='text-lg leading-5'>{firstName + " " + lastName}</h3>
-                    <h3 className='text-lg'>@{channelName}</h3>
-                    <Link to="/channel" >
+                    <h3 className='text-lg'>{channelId}</h3>
+                    <Link to={`/channel/${channelId}`} >
                         <p className='text-blue-600 mt-2'>View your channel</p>
                     </Link>
                 </div>
