@@ -1,33 +1,48 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { registerUser } from '../../services/api/auth.service';
 
 const Register = () => {
     const [form, setForm] = useState({
+        firstName: '',
+        lastName: '',
         email: '',
         password: '',
         channelId: '',
-        channelName: '',
         profile: null,
     });
+    const navigate = useNavigate();
 
     const [preview, setPreview] = useState(null);
 
-    const handleRegister = (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
 
         // using formdata to handle file uploads 
-        if (!form.email || !form.password || !form.channelId || !form.channelName) {
+        if (!form.email || !form.password || !form.channelId) {
             alert('Please fill in all required fields.');
             return;
         }
         const formData = new FormData();
+        formData.append('firstName', form.firstName);
+        formData.append('lastName', form.lastName);
         formData.append('email', form.email);
         formData.append('password', form.password);
         formData.append('channelId', form.channelId);
-        formData.append('channelName', form.channelName);
         formData.append('profile', form.profile);
 
         console.log('FormData to send:', formData);
+        try {
+            const result = await registerUser(formData);
+
+            if (!result || !result.data) {
+                return;
+            }
+
+            navigate("/auth/login", { replace: true });
+        } catch (err) {
+            console.error('Registration error:', err);
+        }
     };
 
     const handleChange = (e) => {
@@ -82,9 +97,9 @@ const Register = () => {
 
                     <input
                         type="text"
-                        name="channelId"
-                        placeholder="Channel ID"
-                        value={form.channelId}
+                        name="firstName"
+                        placeholder="First Name"
+                        value={form.firstName}
                         onChange={handleChange}
                         className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
                         required
@@ -92,13 +107,26 @@ const Register = () => {
 
                     <input
                         type="text"
-                        name="channelName"
-                        placeholder="Channel Name"
-                        value={form.channelName}
+                        name="lastName"
+                        placeholder="Last Name"
+                        value={form.lastName}
                         onChange={handleChange}
                         className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
                         required
                     />
+
+                    <div className="relative w-full">
+                        <span className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 text-sm">@</span>
+                        <input
+                            type="text"
+                            name="channelId"
+                            placeholder="Channel ID"
+                            value={form.channelId}
+                            onChange={handleChange}
+                            className="w-full pl-7 pr-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+                            required
+                        />
+                    </div>
 
                     <input
                         type="email"

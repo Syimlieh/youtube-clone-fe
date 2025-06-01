@@ -5,10 +5,19 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import { IoMdArrowBack } from "react-icons/io";
 import Hamburger from './Hamburger';
 import ProfileModal from './ProfileModal';
+import { HiOutlineUserCircle } from "react-icons/hi2";
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
     const [activeSmSearch, setActiveSmSearch] = useState(false);
     const [profileModal, setProfileModal] = useState(false);
+    const navigate = useNavigate();
+    const user = useSelector((state) => state.profile.value);
+
+    const handleToggleProfileModal = () => {
+        setProfileModal(!profileModal);
+    };
 
     return (
         <nav className="fixed top-0 l-0 h-16 flex justify-between items-center gap-4 px-5 md:px-7 w-full bg-white z-30">
@@ -45,14 +54,21 @@ const Navbar = () => {
                             <button className="hidden xsm:block p-2 rounded-full hover:bg-gray-100">
                                 <IoIosNotificationsOutline className='text-3xl cursor-pointer' />
                             </button>
-                            <img
-                                src="/images/profile.jpg"
-                                alt="User Avatar"
-                                className="h-10 w-10 rounded-full object-cover cursor-pointer"
-                                onClick={() => setProfileModal(!profileModal)}
-                            />
-                            {/* <div className=''>
-                            </div> */}
+                            {
+                                user ? <img
+                                    src={user.profileFile?.url || '/images/profile.jpg'}
+                                    alt="User Avatar"
+                                    className="h-10 w-10 rounded-full object-cover cursor-pointer"
+                                    onClick={handleToggleProfileModal}
+                                /> : <button
+                                    onClick={() => navigate('/auth/login')}
+                                    className="bg-blue-300/20 text-blue-900 flex gap-2 items-center rounded-full px-4 py-2 text-sm whitespace-nowrap cursor-pointer hover:bg-blue-300/30 transition-all duration-200 font-semibold"
+                                >
+                                    <HiOutlineUserCircle className='text-2xl' />
+                                    Sign In
+                                </button>
+                            }
+
                             {profileModal && <ProfileModal />}
 
                         </div>

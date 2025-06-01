@@ -1,3 +1,4 @@
+import AuthInitializer from "./components/auth/AuthInitializer";
 import Category from "./components/Category";
 import Navbar from "./components/common/Navbar";
 import Sidebar from "./components/common/Sidebar";
@@ -7,6 +8,7 @@ import VideoList from "./components/VideoList";
 function App() {
   return (
     <div className="">
+      <AuthInitializer />
       <Navbar />
       <div className="flex">
         <Sidebar />

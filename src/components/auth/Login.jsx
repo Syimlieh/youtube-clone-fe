@@ -1,19 +1,39 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginUser, myProfile } from '../../services/api/auth.service';
+import { setProfile } from '../../store/slice/profile.slice';
+import { useDispatch } from 'react-redux';
 
 const Login = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [form, setForm] = useState({
         email: '',
         password: '',
     });
-    const handleLogin = (e) => {
+
+    const handleLogin = async (e) => {
         e.preventDefault();
-        console.log('Login payload:', formData);
         // handle login logic
-        setForm({
-            email: formData.email,
-            password: '',
-        });
+        try {
+            const result = await loginUser(form);
+            // storing token to localStorage
+            if (!result || !result.data) {
+                return;
+            }
+
+            localStorage.setItem('token', result.data);
+
+            const user = await myProfile();
+
+            dispatch(setProfile(user));
+
+            // Navigate after success
+            navigate('/');
+        } catch (err) {
+            console.error('Registration error:', err);
+
+        }
     };
 
     const handleChange = (e) => {
