@@ -15,7 +15,7 @@ const RelatedVideos = () => {
                 relatedVideo && relatedVideo.map((item) =>
                     isSmallScreen ? ( // for small screen we use the Video Card and for desktop we use the new Related Videos
                         <VideoCard
-                            key={item.id}
+                            key={item._id}
                             title={item.title}
                             thumbnail={item.thumbnail}
                             profile={item.profile}
