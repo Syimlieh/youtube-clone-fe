@@ -6,3 +6,4 @@ export const MY_PROFILE = '/auth/me';
 
 // Video URLs
 export const VIDEO_LIST_URL = '/video';
+export const VIDEO_DETAIL_URL = '/video/:id';

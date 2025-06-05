@@ -7,12 +7,26 @@ import { LiaDownloadSolid } from "react-icons/lia";
 import RelatedVideos from "./RelatedVideos";
 import Comments from "./Comments";
 import VideoDescription from "./VideoDescription";
+import { API_BASE_URL } from "../lib/axios";
+import { VIDEO_DETAIL_URL } from "../services/api/url.service";
+import useApiRequest from "../hooks/useGetQuery";
 
 const VideoView = () => {
   const [searchParams] = useSearchParams();
   const videoId = searchParams.get("v");
   const toggle = useSelector((state) => state.toggle.sidebar);
-  const { title, views, likes, profile, channel, channelId, publishedAt, subscriberCount, description } = useSelector((state) => selectVideoById(state, videoId));
+
+  const videoFromStore = useSelector((state) => selectVideoById(state, videoId));
+
+  // URL can be safely built regardless
+  const URL = API_BASE_URL + VIDEO_DETAIL_URL.replace(':id', videoId);
+
+  // Always call hook
+  const { data } = useApiRequest(URL);
+
+  const video = videoFromStore || data?.data;
+
+  const { title, views, likes, profile, channel, channelId, publishedAt, subscriberCount, description } = video || {};
 
   return (
     <div className={`flex flex-col m-auto xl:flex-row gap-6 max-w-screen-[2314px] 3xl:w-9/10 px-4 py-22`}>
@@ -67,7 +81,9 @@ const VideoView = () => {
             </span>
           </div>
         </div>
-        <VideoDescription views={views} channel={channel} profile={profile} subscriberCount={subscriberCount} publishedAt={publishedAt} description={description} likes={likes} />
+        {
+          video && <VideoDescription views={views} channel={channel} profile={profile} subscriberCount={subscriberCount} publishedAt={publishedAt} description={description} likes={likes} />
+        }
         <Comments />
       </div>
 
