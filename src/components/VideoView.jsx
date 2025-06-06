@@ -1,6 +1,6 @@
 import { Link, useSearchParams } from "react-router-dom";
-import { selectVideoById } from "../store/slice/video.slice";
-import { useSelector } from "react-redux";
+import { selectVideoById, setSelectedVideo } from "../store/slice/video.slice";
+import { useDispatch, useSelector } from "react-redux";
 import { formatViews } from "../utils/formatter.utils";
 import { PiThumbsUp, PiThumbsDown, PiShareFatLight, PiDotsThreeLight } from "react-icons/pi";
 import { LiaDownloadSolid } from "react-icons/lia";
@@ -12,6 +12,7 @@ import { VIDEO_DETAIL_URL } from "../services/api/url.service";
 import useApiRequest from "../hooks/useGetQuery";
 
 const VideoView = () => {
+  const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const videoId = searchParams.get("v");
   const toggle = useSelector((state) => state.toggle.sidebar);
@@ -25,6 +26,8 @@ const VideoView = () => {
   const { data } = useApiRequest(URL);
 
   const video = videoFromStore || data?.data;
+
+  dispatch(setSelectedVideo(video));
 
   const { title, views, likes, profile, channel, channelId, publishedAt, subscriberCount, description } = video || {};
 

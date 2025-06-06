@@ -2,11 +2,11 @@ import { SlArrowDown } from "react-icons/sl";
 import { formatUploadAt, formatViews } from "../utils/formatter.utils";
 import { PiThumbsUp, PiThumbsDown } from "react-icons/pi";
 
-const CommentItem = ({ userName, comment, postedAt, likes }) => {
+const CommentItem = ({ userName, comment, profileFile, postedAt, likes, dislikes }) => {
     return (
         <div className="flex gap-2 mt-8 items-start">
             <img
-                src="/images/profile.jpg"
+                src={profileFile?.url}
                 alt="User Avatar"
                 className="h-10 w-10 rounded-full object-cover cursor-pointer"
             />
@@ -26,6 +26,7 @@ const CommentItem = ({ userName, comment, postedAt, likes }) => {
                     <div className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 cursor-pointer">
                         <PiThumbsDown className="text-lg text-black" />
                     </div>
+                    <p className="text-black text-sm font-semibold">{formatViews(dislikes)}</p>
                     <p className="text-sm font-semibold ml-4">Reply</p>
                 </span>
                 <div className="px-3 py-2 flex gap-3 items-center cursor-pointer hover:bg-blue-100 text-blue-800 rounded-2xl w-fit text-md font-semibold">

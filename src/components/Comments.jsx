@@ -1,15 +1,34 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CommentItem from './CommentItem';
 import { BsFilterLeft } from "react-icons/bs";
 import AddNewComment from "./AddNewComment";
 import SimpleModal from "./common/SimpleModal";
 import { useState } from "react";
+import { VIDEO_COMMENT_URL } from "../services/api/url.service";
+import useApiRequest from "../hooks/useGetQuery";
+import { setComments } from "../store/slice/comment.slice";
+import { API_BASE_URL } from "../lib/axios";
+import { useEffect } from "react";
 
 const sortItems = ["Top comments", "Newest first"];
 const Comments = () => {
+    const dispatch = useDispatch();
     const [openSort, setOpenSort] = useState(false);
     const [selectedSort, setSelectedSort] = useState(sortItems[0]);
-    const comments = useSelector((state) => state.comments.value); // type `any` can be replaced with proper store type
+    const selectedVideo = useSelector((state) => state.videos.selected);
+    const comments = useSelector((state) => state.comments.value);
+
+    const videoId = selectedVideo?._id;
+
+    const URL = videoId ? API_BASE_URL + VIDEO_COMMENT_URL.replace(':id', videoId) : null;
+    const { data, error } = useApiRequest(URL, { enabled: !!videoId });
+
+    useEffect(() => {
+
+        if (data && data.data) {
+            dispatch(setComments(data.data));
+        }
+    }, [data, error, dispatch, selectedVideo?._id]);
 
     const handleSortSelect = (item) => {
         setSelectedSort(item);
@@ -50,10 +69,12 @@ const Comments = () => {
             {
                 comments.length && comments.map((item) => <CommentItem
                     key={item.id}
-                    userName={item.username}
+                    userName={item?.channelId}
                     comment={item.comment}
+                    profileFile={item?.userId?.profileFile}
                     postedAt={item.postedAt}
                     likes={item.likes}
+                    dislikes={item.dislikes}
                 />)
             }
         </div>

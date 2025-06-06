@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     items: [],
+    selected: null,
     shorts: [
         {
             id: 1,
@@ -78,6 +79,10 @@ const videoSlice = createSlice({
         addVideos: (state, action) => {
             state.items = action.payload;
         },
+        setSelectedVideo: (state, action) => {
+            console.log("Selected Video slice:", action.payload);
+            state.selected = action.payload;
+        },
     }
 });
 
@@ -92,6 +97,6 @@ export const selectVideoCountByChannel = (state, channelId) =>
     state.videos.items.filter(video => video.channelId === channelId).length;
 
 // exporting reducers function
-export const { addVideos } = videoSlice.actions;
+export const { addVideos, setSelectedVideo } = videoSlice.actions;
 
 export default videoSlice.reducer;
