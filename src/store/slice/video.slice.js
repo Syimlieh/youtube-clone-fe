@@ -80,7 +80,6 @@ const videoSlice = createSlice({
             state.items = action.payload;
         },
         setSelectedVideo: (state, action) => {
-            console.log("Selected Video slice:", action.payload);
             state.selected = action.payload;
         },
     }

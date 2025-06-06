@@ -42,7 +42,7 @@ const RelatedVideos = () => {
                         />
                     ) : (
                         <RelatedVideoCard
-                            key={item.id}
+                            key={item._id}
                             title={item.title}
                             views={item.views}
                             channel={item.channel}

@@ -12,7 +12,7 @@ const CommentItem = ({ userName, comment, profileFile, postedAt, likes, dislikes
             />
             <div>
                 <div className="flex gap-2">
-                    <h3 className='text-sm leading-5 font-semibold'>@{userName}</h3>
+                    <h3 className='text-sm leading-5 font-semibold'>{userName}</h3>
                     <p className="text-gray-700 text-sm">{formatUploadAt(postedAt)} ago</p>
                 </div>
                 <h3 className='text-md'>{comment}</h3>

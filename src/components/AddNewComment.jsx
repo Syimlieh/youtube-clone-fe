@@ -1,22 +1,49 @@
 import { useState } from "react";
 import { GrEmoji } from "react-icons/gr";
 import EmojiPickerWrapper from "./EmojiWrapper";
+import { addNewComment } from "../services/api/comment.service";
+import { useDispatch, useSelector } from "react-redux";
+import { setComments } from "../store/slice/comment.slice";
+import axiosInstance, { API_BASE_URL } from "../lib/axios";
+import { VIDEO_COMMENT_URL } from "../services/api/url.service";
 
 const AddNewComment = () => {
+    const dispatch = useDispatch();
     const [isFocused, setIsFocused] = useState(false);
     const [openEmoji, setOpenEmoji] = useState(false);
     const [comment, setComment] = useState("");
+    const selectedVideo = useSelector((state) => state.videos.selected);
 
     const handleCancel = () => {
         setComment("");
         setIsFocused(false);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!comment.trim()) return;
         setComment("");
         setIsFocused(false);
+
+        // we only add new coment if video id is there
+        if (!selectedVideo?._id) {
+            return;
+        }
+        const payload = {
+            videoId: selectedVideo?._id,
+            comment: comment.trim(),
+        }
+        const result = await addNewComment(payload);
+        if (result && result.data) {
+            // if adding comment is successful, we need to refresh the comments list
+            const URL = API_BASE_URL + VIDEO_COMMENT_URL.replace(":id", selectedVideo._id);
+            const refreshed = await axiosInstance.get(URL);
+
+            if (refreshed?.data?.data) {
+                // we need to update the comments in the store
+                dispatch(setComments(refreshed?.data.data)); // full populated list
+            }
+        }
     };
 
     const handleEmojiClick = (emojiData) => {

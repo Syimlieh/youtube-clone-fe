@@ -31,7 +31,6 @@ const Register = () => {
         formData.append('channelId', form.channelId);
         formData.append('profile', form.profile);
 
-        console.log('FormData to send:', formData);
         try {
             const result = await registerUser(formData);
 
