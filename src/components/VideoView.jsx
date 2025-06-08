@@ -7,9 +7,11 @@ import { LiaDownloadSolid } from "react-icons/lia";
 import RelatedVideos from "./RelatedVideos";
 import Comments from "./Comments";
 import VideoDescription from "./VideoDescription";
-import { API_BASE_URL } from "../lib/axios";
 import { VIDEO_DETAIL_URL } from "../services/api/url.service";
 import useApiRequest from "../hooks/useGetQuery";
+import { addNewReaction, deleteReaction } from "../services/api/reaction.service";
+import { refetchVideo } from "../services/api/video.service";
+import { useEffect } from "react";
 
 const VideoView = () => {
   const dispatch = useDispatch();
@@ -17,21 +19,36 @@ const VideoView = () => {
   const videoId = searchParams.get("v");
   const toggle = useSelector((state) => state.toggle.sidebar);
   const user = useSelector((state) => state.profile.value);
+  const video = useSelector(state => state.videos.selected);
 
   // URL can be safely built regardless
-  let URL = API_BASE_URL + VIDEO_DETAIL_URL.replace(':id', videoId);
+  let URL = VIDEO_DETAIL_URL.replace(':id', videoId);
   if (user) {
     URL += `?userId=${user._id}`;
   }
-
   // Always call hook
   const { data } = useApiRequest(URL);
 
-  const video = data?.data;
+  useEffect(() => {
+    if (data?.data) {
+      dispatch(setSelectedVideo(data?.data));
+    }
+  }, [data, dispatch]);
 
-  dispatch(setSelectedVideo(video));
+  const { _id, title, views, likeCount, reactedByMe, profile, channel, channelId, publishedAt, subscriberCount, description } = video || {};
 
-  const { title, views, likeCount, reactedByMe, profile, channel, channelId, publishedAt, subscriberCount, description } = video || {};
+  const handleNewReaction = async (newIsLiked) => {
+    // already liked by me
+    if (reactedByMe.isLiked === newIsLiked) {
+      await deleteReaction(reactedByMe._id); // must have _id of the reaction
+    } else {// not liked by me before
+      await addNewReaction({ videoId: _id, isLiked: newIsLiked });
+    }
+
+    // refetch to update the UI
+    const data = await refetchVideo(videoId, user)
+    dispatch(setSelectedVideo(data?.data));
+  };
 
   return (
     <div className={`flex flex-col m-auto xl:flex-row gap-6 max-w-screen-[2314px] 3xl:w-9/10 px-4 py-22`}>
@@ -68,15 +85,26 @@ const VideoView = () => {
           </div>
           <div className="flex gap-4 xsm:gap-2 2xl:gap-4 items-center">
             <span className="flex items-center tiny-2 gap-2 tiny:gap-4 xsm:gap-2 bg-gray-100 rounded-full px-2 py-1.5 cursor-pointer hover:bg-gray-200">
-              {reactedByMe === null || reactedByMe !== true ? // Use ternary operator to check if user has reacted
-                <PiThumbsUp className={`cursor-pointer text-lg  2xl:text-3xl `} /> :
-                <PiThumbsUpFill className={`cursor-pointer text-lg  2xl:text-3xl `} />
+
+              {reactedByMe?.isLiked === true ? // Use ternary operator to check if user has reacted
+                <PiThumbsUpFill
+                  className={`cursor-pointer text-lg  2xl:text-3xl `}
+                  onClick={() => handleNewReaction(true)}
+                /> :
+                <PiThumbsUp
+                  className={`cursor-pointer text-lg  2xl:text-3xl `}
+                  onClick={() => handleNewReaction(true)}
+                />
               }
               <p className="text-black text-sm font-semibold">{formatViews(likeCount || 0)}</p>
               <div className="w-px h-4 bg-gray-400 mx-2" />
-              {reactedByMe === null || reactedByMe !== false ?
-                <PiThumbsDown className="text-lg  2xl:text-3xl" /> :
-                <PiThumbsDownFill className="text-lg  2xl:text-3xl" />
+              {reactedByMe?.isLiked === false ?
+                <PiThumbsDownFill className="text-lg  2xl:text-3xl"
+                  onClick={() => handleNewReaction(false)}
+                /> :
+                <PiThumbsDown className="text-lg  2xl:text-3xl"
+                  onClick={() => handleNewReaction(false)}
+                />
               }
             </span>
             <span className="flex items-center gap-2 bg-gray-100 rounded-full px-2 tiny:px-4 xsm:px-2 md:px-4 py-1.5 cursor-pointer hover:bg-gray-200">

@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import axiosInstance from "../lib/axios";
 
 const useApiRequest = (url) => {
     const [data, setData] = useState(null);
@@ -18,7 +18,7 @@ const useApiRequest = (url) => {
             setError(null);
             setData(null);
             try {
-                const response = await axios.get(url, { signal: controller.signal });
+                const response = await axiosInstance.get(url, { signal: controller.signal });
                 if (response.status === 200) {
                     setData(response.data);
                 }

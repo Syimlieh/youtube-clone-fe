@@ -8,6 +8,11 @@ export const MY_PROFILE = '/auth/me';
 export const VIDEO_LIST_URL = '/video';
 export const VIDEO_DETAIL_URL = '/video/:id';
 
+// Reaction
+export const VIDEO_REACTION_URL = '/video/like';
+export const DELETE_VIDEO_REACTION_URL = '/video/like/:id';
+export const COMMENT_REACTION_URL = '/video/like/comment';
+export const DELETE_COMMENT_REACTION_URL = '/video/like/comment/:id';
 
 // Channel URLs
 export const REPLIES_COMMENT_URL = '/video/comment/replies/:id';
