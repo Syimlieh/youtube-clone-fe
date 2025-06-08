@@ -68,7 +68,7 @@ const Comments = () => {
             </div>
 
             {
-                comments.length && comments.map((item) => <CommentItem
+                comments.map((item) => <CommentItem
                     key={item._id}
                     commentId={item._id}
                     userName={item?.userDetails?.channelId}

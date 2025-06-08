@@ -2,7 +2,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { selectVideoById, setSelectedVideo } from "../store/slice/video.slice";
 import { useDispatch, useSelector } from "react-redux";
 import { formatViews } from "../utils/formatter.utils";
-import { PiThumbsUp, PiThumbsDown, PiShareFatLight, PiDotsThreeLight } from "react-icons/pi";
+import { PiThumbsUp, PiThumbsDown, PiShareFatLight, PiDotsThreeLight, PiThumbsUpFill, PiThumbsDownFill } from "react-icons/pi";
 import { LiaDownloadSolid } from "react-icons/lia";
 import RelatedVideos from "./RelatedVideos";
 import Comments from "./Comments";
@@ -16,20 +16,22 @@ const VideoView = () => {
   const [searchParams] = useSearchParams();
   const videoId = searchParams.get("v");
   const toggle = useSelector((state) => state.toggle.sidebar);
-
-  const videoFromStore = useSelector((state) => selectVideoById(state, videoId));
+  const user = useSelector((state) => state.profile.value);
 
   // URL can be safely built regardless
-  const URL = API_BASE_URL + VIDEO_DETAIL_URL.replace(':id', videoId);
+  let URL = API_BASE_URL + VIDEO_DETAIL_URL.replace(':id', videoId);
+  if (user) {
+    URL += `?userId=${user._id}`;
+  }
 
   // Always call hook
   const { data } = useApiRequest(URL);
 
-  const video = videoFromStore || data?.data;
+  const video = data?.data;
 
   dispatch(setSelectedVideo(video));
 
-  const { title, views, likes, profile, channel, channelId, publishedAt, subscriberCount, description } = video || {};
+  const { title, views, likeCount, reactedByMe, profile, channel, channelId, publishedAt, subscriberCount, description } = video || {};
 
   return (
     <div className={`flex flex-col m-auto xl:flex-row gap-6 max-w-screen-[2314px] 3xl:w-9/10 px-4 py-22`}>
@@ -66,10 +68,16 @@ const VideoView = () => {
           </div>
           <div className="flex gap-4 xsm:gap-2 2xl:gap-4 items-center">
             <span className="flex items-center tiny-2 gap-2 tiny:gap-4 xsm:gap-2 bg-gray-100 rounded-full px-2 py-1.5 cursor-pointer hover:bg-gray-200">
-              <PiThumbsUp className="cursor-pointer text-lg  2xl:text-3xl" />
-              <p className="text-black text-sm font-semibold">{formatViews(likes)}</p>
+              {reactedByMe === null || reactedByMe !== true ? // Use ternary operator to check if user has reacted
+                <PiThumbsUp className={`cursor-pointer text-lg  2xl:text-3xl `} /> :
+                <PiThumbsUpFill className={`cursor-pointer text-lg  2xl:text-3xl `} />
+              }
+              <p className="text-black text-sm font-semibold">{formatViews(likeCount || 0)}</p>
               <div className="w-px h-4 bg-gray-400 mx-2" />
-              <PiThumbsDown className="text-lg  2xl:text-3xl" />
+              {reactedByMe === null || reactedByMe !== false ?
+                <PiThumbsDown className="text-lg  2xl:text-3xl" /> :
+                <PiThumbsDownFill className="text-lg  2xl:text-3xl" />
+              }
             </span>
             <span className="flex items-center gap-2 bg-gray-100 rounded-full px-2 tiny:px-4 xsm:px-2 md:px-4 py-1.5 cursor-pointer hover:bg-gray-200">
               <PiShareFatLight className="cursor-pointer text-lg  2xl:text-3xl" />
@@ -85,7 +93,7 @@ const VideoView = () => {
           </div>
         </div>
         {
-          video && <VideoDescription views={views} channel={channel} profile={profile} subscriberCount={subscriberCount} publishedAt={publishedAt} description={description} likes={likes} />
+          video && <VideoDescription views={views} channel={channel} profile={profile} subscriberCount={subscriberCount} publishedAt={publishedAt} description={description} likes={likeCount} />
         }
         <Comments />
       </div>
