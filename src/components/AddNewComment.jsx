@@ -6,13 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { setComments } from "../store/slice/comment.slice";
 import axiosInstance, { API_BASE_URL } from "../lib/axios";
 import { VIDEO_COMMENT_URL } from "../services/api/url.service";
+import { useNavigate } from 'react-router-dom';
 
 const AddNewComment = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isFocused, setIsFocused] = useState(false);
     const [openEmoji, setOpenEmoji] = useState(false);
     const [comment, setComment] = useState("");
     const selectedVideo = useSelector((state) => state.videos.selected);
+    const user = useSelector((state) => state.profile.value);
 
     const handleCancel = () => {
         setComment("");
@@ -21,6 +24,12 @@ const AddNewComment = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // if user is not logged in, we redirect to login page
+        if (!user?._id) {
+            navigate("/auth/login");
+            return;
+        }
         if (!comment.trim()) return;
         setComment("");
         setIsFocused(false);

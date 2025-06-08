@@ -17,6 +17,7 @@ const Comments = () => {
     const [selectedSort, setSelectedSort] = useState(sortItems[0]);
     const selectedVideo = useSelector((state) => state.videos.selected);
     const comments = useSelector((state) => state.comments.value);
+    const user = useSelector((state) => state.profile.value);
 
     const videoId = selectedVideo?._id;
 
@@ -59,7 +60,7 @@ const Comments = () => {
 
             <div className="flex gap-2 w-full">
                 <img
-                    src="/images/profile.jpg"
+                    src={user ? user?.profileFile?.url : '/images/default-avatar.jpg'}
                     alt="User Avatar"
                     className="h-10 w-10 rounded-full object-cover cursor-pointer"
                 />
@@ -69,12 +70,14 @@ const Comments = () => {
             {
                 comments.length && comments.map((item) => <CommentItem
                     key={item._id}
-                    userName={item?.userId?.channelId}
+                    commentId={item._id}
+                    userName={item?.userDetails?.channelId}
                     comment={item.comment}
-                    profileFile={item?.userId?.profileFile}
+                    profileFile={item?.userDetails?.profileFile}
                     postedAt={item.createdAt}
                     likes={item.likes}
                     dislikes={item.dislikes}
+                    replyCount={item.replyCount}
                 />)
             }
         </div>

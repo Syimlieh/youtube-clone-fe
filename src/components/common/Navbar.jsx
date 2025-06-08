@@ -56,7 +56,7 @@ const Navbar = () => {
                             </button>
                             {
                                 user ? <img
-                                    src={user.profileFile?.url || '/images/profile.jpg'}
+                                    src={user?.profileFile?.url || '/images/default-avatar.jpg'}
                                     alt="User Avatar"
                                     className="h-10 w-10 rounded-full object-cover cursor-pointer"
                                     onClick={handleToggleProfileModal}
