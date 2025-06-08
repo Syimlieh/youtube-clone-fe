@@ -21,7 +21,10 @@ const Comments = () => {
 
     const videoId = selectedVideo?._id;
 
-    const URL = videoId ? API_BASE_URL + VIDEO_COMMENT_URL.replace(':id', videoId) : null;
+    let URL = videoId ? API_BASE_URL + VIDEO_COMMENT_URL.replace(':id', videoId) : null;
+    if (user?._id) {
+        URL += `?userId=${user._id}`; // Append userId for reaction data
+    }
     const { data, error } = useApiRequest(URL);
 
     useEffect(() => {
@@ -77,6 +80,7 @@ const Comments = () => {
                     postedAt={item.createdAt}
                     likes={item.likes}
                     dislikes={item.dislikes}
+                    reactedByMe={item.reactedByMe}
                     replyCount={item.replyCount}
                 />)
             }

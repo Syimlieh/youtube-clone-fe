@@ -1,16 +1,18 @@
 import { SlArrowDown } from "react-icons/sl";
 import { formatUploadAt, formatViews } from "../utils/formatter.utils";
-import { PiThumbsUp, PiThumbsDown } from "react-icons/pi";
+import { PiThumbsUp, PiThumbsDown, PiThumbsDownFill, PiThumbsUpFill } from "react-icons/pi";
 import { useSelector } from "react-redux";
 import { REPLIES_COMMENT_URL } from "../services/api/url.service";
-import axiosInstance, { API_BASE_URL } from "../lib/axios";
+import axiosInstance from "../lib/axios";
 import { useState } from "react";
 import { addNewComment } from "../services/api/comment.service";
 import { useNavigate } from "react-router-dom";
 import EmojiPickerWrapper from "./EmojiWrapper";
 import { GrEmoji } from "react-icons/gr";
 
-const CommentItem = ({ commentId, userName, comment, profileFile, postedAt, likes, dislikes, replyCount, nestedReply = false }) => {
+const CommentItem = ({
+    commentId, userName, comment, profileFile, postedAt, likes, dislikes, reactedByMe, replyCount, nestedReply = false
+}) => {
     const navigate = useNavigate();
     const [replies, setReplies] = useState(false);
     const [showReplyInput, setShowReplyInput] = useState(false);
@@ -48,7 +50,10 @@ const CommentItem = ({ commentId, userName, comment, profileFile, postedAt, like
 
     const handleShowCommentReply = async () => {
         setShowAllReplies(true);
-        const URL = REPLIES_COMMENT_URL.replace(":id", commentId);
+        let URL = REPLIES_COMMENT_URL.replace(":id", commentId);
+        if (user?._id) {
+            URL += `?userId=${user._id}`; // Append userId for reaction data
+        }
         const refreshed = await axiosInstance.get(URL);
         setReplies(refreshed.data.data || []);
     };
@@ -75,12 +80,26 @@ const CommentItem = ({ commentId, userName, comment, profileFile, postedAt, like
                 <span className="flex items-center tiny-2 gap-2 cursor-pointer ">
                     <div className="flex items-center">
                         <div className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 cursor-pointer">
-                            <PiThumbsUp className="text-lg text-black" />
+                            {
+                                reactedByMe?.isLiked === true ? (
+                                    <PiThumbsUpFill className="text-lg text-black" />
+                                ) : (
+                                    <PiThumbsUp className="text-lg text-black" />
+                                )
+                            }
+
                         </div>
                         <p className="text-black text-sm font-semibold">{formatViews(likes)}</p>
                     </div>
                     <div className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 cursor-pointer">
-                        <PiThumbsDown className="text-lg text-black" />
+                        {
+                            reactedByMe?.isLiked === false ? (
+                                <PiThumbsDownFill className="text-lg text-black" />
+                            ) : (
+                                <PiThumbsDown className="text-lg text-black" />
+                            )
+                        }
+
                     </div>
                     <p className="text-black text-sm font-semibold">{formatViews(dislikes)}</p>
                     {!nestedReply && <p className="text-sm font-semibold ml-4" onClick={() => setShowReplyInput(!showReplyInput)}>Reply</p>}
@@ -156,6 +175,7 @@ const CommentItem = ({ commentId, userName, comment, profileFile, postedAt, like
                             postedAt={reply.createdAt}
                             likes={reply.likes}
                             dislikes={reply.dislikes}
+                            reactedByMe={reply.reactedByMe}
                             replyCount={reply.replyCount}
                             nestedReply={true}
                         />
