@@ -1,5 +1,5 @@
 import { Link, useSearchParams } from "react-router-dom";
-import { selectVideoById, setSelectedVideo } from "../store/slice/video.slice";
+import { setSelectedVideo } from "../store/slice/video.slice";
 import { useDispatch, useSelector } from "react-redux";
 import { formatViews } from "../utils/formatter.utils";
 import { PiThumbsUp, PiThumbsDown, PiShareFatLight, PiDotsThreeLight, PiThumbsUpFill, PiThumbsDownFill } from "react-icons/pi";

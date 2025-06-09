@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { AiFillHome, AiOutlineHome } from "react-icons/ai";
 import { SiYoutubeshorts } from "react-icons/si";
 import { MdOutlineSubscriptions, MdSubscriptions } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
 
 // using this constant here only as in this example we are not using this anywhere else
 const sidebarItems = [
@@ -15,27 +16,29 @@ const sidebarItems = [
         name: 'Shorts',
         filledIcon: <SiYoutubeshorts className="text-2xl" />,
         outlineIcon: <img src='/images/shorts_outline.png' alt='shorts image' className='h-6 w-6' />,
-        link: '/shorts',
+        link: '/',
     },
     {
         name: 'Subscriptions',
         filledIcon: <MdSubscriptions className="text-2xl" />,
         outlineIcon: <MdOutlineSubscriptions className="text-2xl" />,
-        link: '/subscriptions',
+        link: '/',
     },
     {
         name: 'You',
         filledIcon: <img src='/images/user_fill.png' alt='you image' className='h-6 w-6' />,
         outlineIcon: <img src='/images/user_outline.png' alt='you image' className='h-6 w-6' />,
-        link: '/you',
+        link: '/',
     },
 ];
 
 const SidebarColapsed = () => {
+    const navigate = useNavigate()
     const [isActive, setIsActive] = useState(0);
 
-    const handleActive = (value) => {
+    const handleActive = (value, link) => {
         setIsActive(value);
+        navigate(link)
     };
 
     return (
@@ -46,7 +49,7 @@ const SidebarColapsed = () => {
                     <div
                         key={index}
                         className={`flex items-center flex-col justify-center h-18 hover:bg-gray-200 w-full cursor-pointer rounded-xl gap-2 `}
-                        onClick={() => handleActive(index)}
+                        onClick={() => handleActive(index, item.link)}
                     >
                         {isActive === index ? item.filledIcon : item.outlineIcon}
                         <p className='text-tiny'>{item.name}</p>

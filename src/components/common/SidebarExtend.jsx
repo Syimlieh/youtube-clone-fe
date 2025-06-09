@@ -6,6 +6,7 @@ import { RiHistoryFill, RiGraduationCapFill, RiGraduationCapLine } from "react-i
 import { BiSolidLike, BiLike } from "react-icons/bi";
 import { GoChevronRight } from "react-icons/go";
 import Hamburger from './Hamburger';
+import { useNavigate } from 'react-router-dom';
 
 // so for extended sidebar we are creating a section of sidebar seperated by category.
 const sidebarItems = [
@@ -79,9 +80,11 @@ const sidebarItems = [
 ];
 
 const SidebarExtend = () => {
+    const navigate = useNavigate()
     const [isActive, setIsActive] = useState("Home"); // setting default active item to Home
     const handleActive = (value) => {
         setIsActive(value);
+        navigate("/"); // defaulting all sidebar link to home as other item are not functional
     };
     return (
         <div className='bg-white h-screen fixed top-0 left-0 hidden md:flex flex-col gap-2 px-4 text-[#0f0f0f] w-64 shrink-0 z-20'>

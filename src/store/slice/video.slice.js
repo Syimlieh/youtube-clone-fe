@@ -85,16 +85,6 @@ const videoSlice = createSlice({
     }
 });
 
-// selector function
-export const selectVideoById = (state, id) =>
-    state.videos.items.find(item => item.videoId === id);
-
-export const selectChannel = (state, id) =>
-    state.videos.items.find(item => item.channelId === id);
-
-export const selectVideoCountByChannel = (state, channelId) =>
-    state.videos.items.filter(video => video.channelId === channelId).length;
-
 // exporting reducers function
 export const { addVideos, setSelectedVideo } = videoSlice.actions;
 
