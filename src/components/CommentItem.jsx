@@ -1,24 +1,29 @@
 import { SlArrowDown } from "react-icons/sl";
 import { formatUploadAt, formatViews } from "../utils/formatter.utils";
 import { PiThumbsUp, PiThumbsDown, PiThumbsDownFill, PiThumbsUpFill } from "react-icons/pi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { REPLIES_COMMENT_URL } from "../services/api/url.service";
 import axiosInstance from "../lib/axios";
 import { useState } from "react";
-import { addNewComment } from "../services/api/comment.service";
+import { addNewComment, fetchCommentReplies, fetchVideoComments } from "../services/api/comment.service";
 import { useNavigate } from "react-router-dom";
 import EmojiPickerWrapper from "./EmojiWrapper";
 import { GrEmoji } from "react-icons/gr";
+import { addNewCommentReaction, deleteCommentReaction } from "../services/api/reaction.service";
+import { setComments } from "../store/slice/comment.slice";
 
 const CommentItem = ({
-    commentId, userName, comment, profileFile, postedAt, likes, dislikes, reactedByMe, replyCount, nestedReply = false
+    commentId, userName, comment, profileFile, postedAt, likes, dislikes, reactedByMe, replyCount, nestedReply = false, parentCommentId, parentSetReplies
 }) => {
     const navigate = useNavigate();
-    const [replies, setReplies] = useState(false);
+    const dispatch = useDispatch();
+    const [replies, _setReplies] = useState(null);  // naming convention to avoid naming conflict.
     const [showReplyInput, setShowReplyInput] = useState(false);
     const [reply, setReply] = useState("");
     const [showAllReplies, setShowAllReplies] = useState(false);
     const [openEmoji, setOpenEmoji] = useState(false);
+    const setReplies = nestedReply ? parentSetReplies : _setReplies;
+    // for a nested reply, don’t use my own setReplies
 
     const user = useSelector((state) => state.profile.value);
     const selectedVideo = useSelector((state) => state.videos.selected);
@@ -50,18 +55,44 @@ const CommentItem = ({
 
     const handleShowCommentReply = async () => {
         setShowAllReplies(true);
-        let URL = REPLIES_COMMENT_URL.replace(":id", commentId);
-        if (user?._id) {
-            URL += `?userId=${user._id}`; // Append userId for reaction data
-        }
-        const refreshed = await axiosInstance.get(URL);
-        setReplies(refreshed.data.data || []);
+        const refreshed = await fetchCommentReplies(commentId, user)
+        setReplies(refreshed.data || []);
     };
 
     const handleCancel = () => {
         setReply("");
         setShowReplyInput(false);
         setOpenEmoji(false);
+    };
+
+    // update and add new reaction to comment
+    const handleNewReaction = async (newIsLiked) => {
+        try {
+            if (!user) {
+                navigate("/auth/login")
+            }
+
+            const videoId = selectedVideo._id;
+
+            // Already reacted with same type  delete
+            if (reactedByMe?.isLiked === newIsLiked) {
+                await deleteCommentReaction(reactedByMe._id);
+            } else {
+                await addNewCommentReaction({ isLiked: newIsLiked, commentId });
+            }
+
+            // refetch nester comments
+            if (nestedReply) {
+                const refreshed = await fetchCommentReplies(parentCommentId, user)
+                setReplies(refreshed.data || []);
+            } else {
+                // Top-level comment refetch all comments
+                const refreshed = await fetchVideoComments(videoId, user);
+                dispatch(setComments(refreshed.data || []));
+            }
+        } catch (err) {
+            console.error("Reaction update failed", err);
+        }
     };
 
     return (
@@ -79,7 +110,7 @@ const CommentItem = ({
                 <h3 className='text-md'>{comment}</h3>
                 <span className="flex items-center tiny-2 gap-2 cursor-pointer ">
                     <div className="flex items-center">
-                        <div className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 cursor-pointer">
+                        <div className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 cursor-pointer" onClick={() => handleNewReaction(true)}>
                             {
                                 reactedByMe?.isLiked === true ? (
                                     <PiThumbsUpFill className="text-lg text-black" />
@@ -91,7 +122,7 @@ const CommentItem = ({
                         </div>
                         <p className="text-black text-sm font-semibold">{formatViews(likes)}</p>
                     </div>
-                    <div className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 cursor-pointer">
+                    <div className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 cursor-pointer" onClick={() => handleNewReaction(false)}>
                         {
                             reactedByMe?.isLiked === false ? (
                                 <PiThumbsDownFill className="text-lg text-black" />
@@ -166,7 +197,7 @@ const CommentItem = ({
 
                 {/* Replies List */}
                 {showAllReplies &&
-                    replies.length && replies.map((reply) => (
+                    replies?.length && replies.map((reply) => (
                         <CommentItem key={reply._id}
                             commentId={reply._id}
                             userName={reply?.userDetails?.channelId}
@@ -178,6 +209,8 @@ const CommentItem = ({
                             reactedByMe={reply.reactedByMe}
                             replyCount={reply.replyCount}
                             nestedReply={true}
+                            parentCommentId={reply.parentCommentId}
+                            parentSetReplies={setReplies}
                         />
                     ))}
             </div>
