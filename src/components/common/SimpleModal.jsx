@@ -1,8 +1,15 @@
 
 const SimpleModal = ({ items, onSelect, onClose }) => {
     return (
-        <div className="bg-white flex items-center justify-center z-20">
-            <div className="bg-white rounded-xl overflow-hidden shadow-lg">
+        <>
+            {/* Backdrop */}
+            <div
+                className="fixed inset-0 z-40 bg-transparent"
+                onClick={onClose}
+            />
+
+            {/* Modal Content */}
+            <div className="absolute right-0 z-50 bg-white rounded-xl overflow-hidden shadow-lg">
                 {items.map((item, idx) => (
                     <button
                         key={idx}
@@ -16,13 +23,8 @@ const SimpleModal = ({ items, onSelect, onClose }) => {
                     </button>
                 ))}
             </div>
-            {/* Click outside to close */}
-            <div
-                className="fixed inset-0 z-40"
-                onClick={onClose}
-            />
-        </div>
+        </>
     );
-}
+};
 
 export default SimpleModal;

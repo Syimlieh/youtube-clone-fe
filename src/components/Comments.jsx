@@ -83,6 +83,7 @@ const Comments = () => {
                     reactedByMe={item.reactedByMe}
                     replyCount={item.replyCount}
                     parentCommentId={item.parentCommentId}
+                    myComment={item.myComment}
                 />)
             }
         </div>

@@ -18,3 +18,5 @@ export const DELETE_COMMENT_REACTION_URL = '/video/like/comment/:id';
 export const REPLIES_COMMENT_URL = '/video/comment/replies/:id';
 export const VIDEO_COMMENT_URL = '/video/comment/:id';
 export const NEW_COMMENT_URL = '/video/comment';
+export const UPDATE_COMMENT_URL = '/video/comment/:id';
+export const DELETE_COMMENT_URL = '/video/comment/:id';
