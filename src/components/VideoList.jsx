@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useApiRequest from '../hooks/useGetQuery';
 import { API_BASE_URL } from '../lib/axios';
 import { VIDEO_LIST_URL } from '../services/api/url.service';
@@ -12,8 +12,23 @@ const VideoList = () => {
     const videos = useSelector((state) => state.videos.items);
     const toggle = useSelector((state) => state.toggle.sidebar);
 
-    const URL = API_BASE_URL + VIDEO_LIST_URL;
-    const { error, data } = useApiRequest(URL); // custom hook
+    const activeCategory = useSelector((state) => state.videos.activeCategory);
+    const searchTerm = useSelector((state) => state.videos.searchTerm);
+    const [fetchUrl, setFetchUrl] = useState(`${VIDEO_LIST_URL}`);
+
+    useEffect(() => {
+        const params = new URLSearchParams();
+        if (activeCategory && activeCategory !== "All") {
+            params.set("category", activeCategory);
+        }
+        if (searchTerm) {
+            params.set("title", searchTerm);
+        }
+
+        setFetchUrl(`${API_BASE_URL}${VIDEO_LIST_URL}?${params.toString()}`);
+    }, [activeCategory, searchTerm]);
+
+    const { data, error } = useApiRequest(fetchUrl);
 
     useEffect(() => {
 

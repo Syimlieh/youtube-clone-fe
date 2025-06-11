@@ -2,10 +2,12 @@ import React, { useRef, useState } from 'react'
 import CategoryItem from './CategoryItem'
 import { CATEGORIES } from '../utils/constants/category'
 import { MdOutlineKeyboardArrowRight, MdOutlineKeyboardArrowLeft } from "react-icons/md";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setActiveCategory } from '../store/slice/video.slice';
 
 const Category = () => {
-    const [activeCategory, setActiveCategory] = useState(CATEGORIES[0].name);
+    const dispatch = useDispatch();
+    const activeCategory = useSelector((state) => state.videos.activeCategory);
     const [showLeftArrow, setShowLeftArrow] = useState(false);
     const scrollRef = useRef(null);
     const toggle = useSelector((state) => state.toggle.sidebar);
@@ -13,7 +15,7 @@ const Category = () => {
 
     // function to handle click category for active item
     const handleCategoryClick = (category) => {
-        setActiveCategory(category);
+        dispatch(setActiveCategory(category));
     }
 
     // for hide and show left arrow

@@ -3,8 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     items: [],
     selected: null,
+    activeCategory: 'All',
+    searchTerm: "",
     shorts: [
-        {
+        { // these are static data for shorts
             id: 1,
             title: "How  Engineers Can Build PERMANENT Job Security in 2025",
             description: "Description for Video 1",
@@ -82,10 +84,16 @@ const videoSlice = createSlice({
         setSelectedVideo: (state, action) => {
             state.selected = action.payload;
         },
+        setActiveCategory: (state, action) => {
+            state.activeCategory = action.payload;
+        },
+        setSearchTerm: (state, action) => {
+            state.searchTerm = action.payload;
+        },
     }
 });
 
 // exporting reducers function
-export const { addVideos, setSelectedVideo } = videoSlice.actions;
+export const { addVideos, setSelectedVideo, setActiveCategory, setSearchTerm } = videoSlice.actions;
 
 export default videoSlice.reducer;

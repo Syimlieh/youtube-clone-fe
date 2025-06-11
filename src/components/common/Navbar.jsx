@@ -7,9 +7,12 @@ import Hamburger from './Hamburger';
 import ProfileModal from './ProfileModal';
 import { HiOutlineUserCircle } from "react-icons/hi2";
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSearchTerm } from '../../store/slice/video.slice';
 
 const Navbar = () => {
+    const dispatch = useDispatch()
+    const [input, setInput] = useState("");
     const [activeSmSearch, setActiveSmSearch] = useState(false);
     const [profileModal, setProfileModal] = useState(false);
     const navigate = useNavigate();
@@ -17,6 +20,10 @@ const Navbar = () => {
 
     const handleToggleProfileModal = () => {
         setProfileModal(!profileModal);
+    };
+
+    const handleSearch = () => {
+        dispatch(setSearchTerm(input));
     };
 
     return (
@@ -36,8 +43,13 @@ const Navbar = () => {
                                     type="text"
                                     placeholder="Search"
                                     className="w-full px-4 py-2 border inset-shadow-sm border-gray-300 rounded-l-full outline-none focus:border-blue-500 text-lg"
+                                    value={input}
+                                    onChange={(e) => setInput(e.target.value)}
+                                    onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                                 />
-                                <button className="px-4 py-1.5 bg-gray-100 border border-l-0 border-gray-300 rounded-r-full hover:bg-gray-200 cursor-pointer">
+                                <button className="px-4 py-1.5 bg-gray-100 border border-l-0 border-gray-300 rounded-r-full hover:bg-gray-200 cursor-pointer"
+                                    onClick={handleSearch}
+                                >
                                     <CiSearch className='text-xl' />
                                 </button>
                             </div>
