@@ -39,7 +39,7 @@ const VideoView = () => {
 
   const handleNewReaction = async (newIsLiked) => {
     // already liked by me
-    if (reactedByMe.isLiked === newIsLiked) {
+    if (reactedByMe?.isLiked === newIsLiked) {
       await deleteReaction(reactedByMe._id); // must have _id of the reaction
     } else {// not liked by me before
       await addNewReaction({ videoId: _id, isLiked: newIsLiked });
