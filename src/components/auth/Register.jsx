@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { registerUser } from '../../services/api/auth.service';
+import toast from 'react-hot-toast';
 
 const Register = () => {
     const [form, setForm] = useState({
@@ -12,17 +13,29 @@ const Register = () => {
         profile: null,
     });
     const navigate = useNavigate();
-
+    const [errors, setErrors] = useState({});
     const [preview, setPreview] = useState(null);
 
     const handleRegister = async (e) => {
         e.preventDefault();
 
         // using formdata to handle file uploads 
-        if (!form.email || !form.password || !form.channelId) {
-            alert('Please fill in all required fields.');
+        const newErrors = {};
+        if (!form.profile) newErrors.profile = 'Profile is required';
+        if (!form.firstName) newErrors.firstName = 'First name is required';
+        if (!form.lastName) newErrors.lastName = 'Last name is required';
+        if (!form.channelId) newErrors.channelId = 'Channel ID is required';
+        if (!form.email) newErrors.email = 'Email is required';
+        else if (!/\S+@\S+\.\S+/.test(form.email)) newErrors.email = 'Invalid email format';
+        if (form.password.trim().length < 8) newErrors.password = 'Password length must be at least 8';
+        if (!form.password) newErrors.password = 'Password is required';
+
+        // if keys exist it mean we have error
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
             return;
         }
+
         const formData = new FormData();
         formData.append('firstName', form.firstName);
         formData.append('lastName', form.lastName);
@@ -41,11 +54,25 @@ const Register = () => {
             navigate("/auth/login", { replace: true });
         } catch (err) {
             console.error('Registration error:', err);
+
+            const resMessage = err?.response?.data?.message;
+
+            if (typeof resMessage === 'string') {
+                toast.error(resMessage);
+            } else {
+                toast.error('Something went wrong. Please try again.');
+            }
         }
     };
 
     const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setForm({ ...form, [name]: value });
+
+        // clear individual error as the user type
+        if (errors[name]) {
+            setErrors((prev) => ({ ...prev, [name]: undefined }));
+        }
     };
 
     const handleFileChange = (e) => {
@@ -93,6 +120,8 @@ const Register = () => {
                         />
                         <span className="text-sm text-gray-600">Choose a profile picture</span>
                     </div>
+                    {/* this will only be visible if there is error  */}
+                    {errors.profile && <p className="text-red-500 text-sm mt-1">{errors.profile}</p>}
 
                     <input
                         type="text"
@@ -103,6 +132,7 @@ const Register = () => {
                         className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
                         required
                     />
+                    {errors.firstName && <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>}
 
                     <input
                         type="text"
@@ -113,6 +143,7 @@ const Register = () => {
                         className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
                         required
                     />
+                    {errors.lastName && <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>}
 
                     <div className="relative w-full">
                         <span className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 text-sm">@</span>
@@ -126,6 +157,7 @@ const Register = () => {
                             required
                         />
                     </div>
+                    {errors.channelId && <p className="text-red-500 text-sm mt-1">{errors.channelId}</p>}
 
                     <input
                         type="email"
@@ -136,6 +168,7 @@ const Register = () => {
                         className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
                         required
                     />
+                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
 
                     <input
                         type="password"
@@ -146,6 +179,7 @@ const Register = () => {
                         className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
                         required
                     />
+                    {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
 
                     <button
                         type="submit"
