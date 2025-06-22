@@ -12,6 +12,7 @@ import useApiRequest from "../hooks/useGetQuery";
 import { addNewReaction, deleteReaction } from "../services/api/reaction.service";
 import { refetchVideo } from "../services/api/video.service";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 const VideoView = () => {
   const dispatch = useDispatch();
@@ -39,15 +40,26 @@ const VideoView = () => {
 
   const handleNewReaction = async (newIsLiked) => {
     // already liked by me
-    if (reactedByMe?.isLiked === newIsLiked) {
-      await deleteReaction(reactedByMe._id); // must have _id of the reaction
-    } else {// not liked by me before
-      await addNewReaction({ videoId: _id, isLiked: newIsLiked });
+    try {
+      if (reactedByMe?.isLiked === newIsLiked) {
+        await deleteReaction(reactedByMe._id); // must have _id of the reaction
+      } else {// not liked by me before
+        await addNewReaction({ videoId: _id, isLiked: newIsLiked });
+      }
+
+      // refetch to update the UI
+      const data = await refetchVideo(videoId, user)
+      dispatch(setSelectedVideo(data?.data));
+    } catch (err) {
+      const resMessage = err?.response?.data?.message;
+
+      if (typeof resMessage === 'string') {
+        toast.error(resMessage);
+      } else {
+        toast.error('Something went wrong. Please try again.');
+      }
     }
 
-    // refetch to update the UI
-    const data = await refetchVideo(videoId, user)
-    dispatch(setSelectedVideo(data?.data));
   };
 
   return (

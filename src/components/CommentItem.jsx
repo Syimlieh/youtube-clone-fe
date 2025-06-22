@@ -13,6 +13,7 @@ import { addNewCommentReaction, deleteCommentReaction } from "../services/api/re
 import { setComments } from "../store/slice/comment.slice";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import SimpleModal from "./common/SimpleModal";
+import toast from "react-hot-toast";
 
 const actionItem = ["Edit", "Delete"];
 const CommentItem = ({
@@ -97,7 +98,13 @@ const CommentItem = ({
                 dispatch(setComments(refreshed.data || []));
             }
         } catch (err) {
-            console.error("Reaction update failed", err);
+            const resMessage = err?.response?.data?.message;
+
+            if (typeof resMessage === 'string') {
+                toast.error(resMessage);
+            } else {
+                toast.error('Something went wrong. Please try again.');
+            }
         }
     };
 
@@ -116,6 +123,13 @@ const CommentItem = ({
             setIsEditing(false);
         } catch (err) {
             console.error("Failed to update comment", err);
+            const resMessage = err?.response?.data?.message;
+
+            if (typeof resMessage === 'string') {
+                toast.error(resMessage);
+            } else {
+                toast.error('Something went wrong. Please try again.');
+            }
         }
     };
 
@@ -135,7 +149,13 @@ const CommentItem = ({
                     dispatch(setComments(refreshed.data || []));
                 }
             } catch (err) {
-                console.error("Failed to delete comment", err);
+                const resMessage = err?.response?.data?.message;
+
+                if (typeof resMessage === 'string') {
+                    toast.error(resMessage);
+                } else {
+                    toast.error('Something went wrong. Please try again.');
+                }
             } finally {
                 setShowOptions(false);
             }
