@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { setSelectedVideo } from "../store/slice/video.slice";
 import { useDispatch, useSelector } from "react-redux";
 import { formatViews } from "../utils/formatter.utils";
@@ -16,6 +16,7 @@ import toast from "react-hot-toast";
 
 const VideoView = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const videoId = searchParams.get("v");
   const toggle = useSelector((state) => state.toggle.sidebar);
@@ -40,6 +41,10 @@ const VideoView = () => {
 
   const handleNewReaction = async (newIsLiked) => {
     // already liked by me
+    if (!user?._id) {
+      navigate("/auth/login");
+      return;
+    }
     try {
       if (reactedByMe?.isLiked === newIsLiked) {
         await deleteReaction(reactedByMe._id); // must have _id of the reaction

@@ -45,7 +45,10 @@ const AddNewComment = () => {
         const result = await addNewComment(payload);
         if (result && result.data) {
             // if adding comment is successful, we need to refresh the comments list
-            const URL = API_BASE_URL + VIDEO_COMMENT_URL.replace(":id", selectedVideo._id);
+            let URL = API_BASE_URL + VIDEO_COMMENT_URL.replace(":id", selectedVideo._id);
+            if (user?._id) {
+                URL += `?userId=${user._id}`; // Append userId for reaction data
+            }
             const refreshed = await axiosInstance.get(URL);
 
             if (refreshed?.data?.data) {
