@@ -37,8 +37,6 @@ const Comments = () => {
     const handleSortSelect = (item) => {
         setSelectedSort(item);
         setOpenSort(false);
-        console.log(`Sort selected: ${item}`);
-        // Optional: dispatch sort logic here if needed
     };
 
     return (

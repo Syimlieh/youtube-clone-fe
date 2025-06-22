@@ -6,7 +6,10 @@ export const MY_PROFILE = '/auth/me';
 
 // Video URLs
 export const VIDEO_LIST_URL = '/video';
+export const ADD_VIDEO_URL = '/video/';
 export const VIDEO_DETAIL_URL = '/video/:id';
+export const UPDATE_VIDEO_URL = '/video/:id';
+export const DELETE_VIDEO_URL = '/video/:id';
 
 // Reaction
 export const VIDEO_REACTION_URL = '/video/like';
